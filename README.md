@@ -1,5 +1,7 @@
 # PHP CodeSniffer - Sniffs for testable code
 
+![Build status](https://travis-ci.org/elijahb/phpcs-testability.svg?branch=master)
+
 ## Introduction
 
 This project provides sniffs for some design patterns that improve
