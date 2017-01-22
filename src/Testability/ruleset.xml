@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="TestabilityPatterns">
+    <description>Standard to check validate code against different design patterns</description>
+
+    <rule ref="Testability.Classes.DependencyInjection"/>
+
+    <rule ref="Testability.Classes.PublicMethods"/>
+
+    <rule ref="Testability.Classes.NotCallStatic"/>
+
+    <rule ref="Testability.Classes.NotCallOwnMethod"/>
+
+    <rule ref="Testability.Classes.LimitCallChain">
+        <properties>
+            <property name="limit" value="2"/>
+        </properties>
+    </rule>
+
+    <rule ref="Testability.CodeAnalysis.ClassHasTestCase">
+        <properties>
+            <property name="testsNamespace" value="Tests"/>
+        </properties>
+    </rule>
+</ruleset>
