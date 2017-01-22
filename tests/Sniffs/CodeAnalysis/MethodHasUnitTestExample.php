@@ -4,12 +4,22 @@ namespace App\Controllers {
 
     class AnotherService
     {
+        public function __construct()
+        {
+
+        }
+
         public function methodHasTest()
         {
 
         }
 
         public function methodHasNotTest()
+        {
+
+        }
+
+        public function __destruct()
         {
 
         }

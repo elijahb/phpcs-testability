@@ -7,6 +7,14 @@ class MethodHasUnitTestSniff implements \PHP_CodeSniffer_Sniff
 
     public $testsNamespace = 'Tests';
 
+    protected $ignoreMethods = [
+        '__construct',
+        '__destruct',
+        '__set',
+        '__get',
+        '__call'
+    ];
+
     public function register()
     {
         return [
@@ -19,7 +27,7 @@ class MethodHasUnitTestSniff implements \PHP_CodeSniffer_Sniff
         $tokens = $phpcsFile->getTokens();
         $functionName = $tokens[$stackPtr + 2]['content'];
         $class = $phpcsFile->findPrevious(T_CLASS, $stackPtr);
-        if($class && $functionName != '__construct') {
+        if($class && !in_array($functionName, $this->ignoreMethods)) {
             $className = $tokens[$class + 2]['content'];
             $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
 
