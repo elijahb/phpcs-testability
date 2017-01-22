@@ -3,6 +3,8 @@ namespace Testability\Sniffs\CodeAnalysis;
 
 class ClassHasTestCaseSniff implements \PHP_CodeSniffer_Sniff
 {
+    use NamespaceHelperTrait;
+
     public $testsNamespace = 'Tests';
 
     public function register()
@@ -16,8 +18,10 @@ class ClassHasTestCaseSniff implements \PHP_CodeSniffer_Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $class = $tokens[$stackPtr + 2]['content'];
-        $namespace = $tokens[$phpcsFile->findPrevious(T_NAMESPACE, $stackPtr) + 2]['content'];
-        if (!class_exists("{$this->testsNamespace}\\$namespace\\{$class}Test") && $namespace != 'Tests' ) {
+
+        $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
+
+        if (!class_exists("{$this->testsNamespace}\\$namespaceName\\{$class}Test") && strpos($namespaceName, $this->testsNamespace) !== 0 ) {
             $phpcsFile->addError("Test case for {$class} missing or wasn't loaded", $stackPtr);
         }
     }

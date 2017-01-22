@@ -14,6 +14,9 @@ class DependencyInjectionSniff implements \PHP_CodeSniffer_Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $class = $tokens[$stackPtr + 2]['content'];
-        $phpcsFile->addError('Use dependency injection for ' . $class, $stackPtr);
+        $throw = $tokens[$stackPtr - 2];
+        if ($throw && $throw['content'] != 'throw') {
+            $phpcsFile->addError('Use dependency injection for ' . $class, $stackPtr);
+        }
     }
 }

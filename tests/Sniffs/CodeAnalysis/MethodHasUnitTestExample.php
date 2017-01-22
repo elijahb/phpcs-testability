@@ -1,6 +1,6 @@
 <?php
 
-namespace App {
+namespace App\Controllers {
 
     class AnotherService
     {
@@ -17,7 +17,7 @@ namespace App {
 
 }
 
-namespace Tests\App {
+namespace Tests\App\Controllers {
 
     use PHPUnit\Framework\TestCase;
 

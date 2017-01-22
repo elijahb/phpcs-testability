@@ -3,6 +3,8 @@ namespace Testability\Sniffs\CodeAnalysis;
 
 class MethodHasUnitTestSniff implements \PHP_CodeSniffer_Sniff
 {
+    use NamespaceHelperTrait;
+
     public $testsNamespace = 'Tests';
 
     public function register()
@@ -19,9 +21,10 @@ class MethodHasUnitTestSniff implements \PHP_CodeSniffer_Sniff
         $class = $phpcsFile->findPrevious(T_CLASS, $stackPtr);
         if($class) {
             $className = $tokens[$class + 2]['content'];
-            $namespace = $tokens[$phpcsFile->findPrevious(T_NAMESPACE, $stackPtr) + 2]['content'];
-            $testClass = "{$this->testsNamespace}\\$namespace\\{$className}Test";
-            if (class_exists($testClass) && $namespace != 'Tests' ) {
+            $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
+
+            $testClass = "{$this->testsNamespace}\\$namespaceName\\{$className}Test";
+            if (class_exists($testClass) && strpos($namespaceName, $this->testsNamespace) !== 0 ) {
                 foreach (get_class_methods($testClass) as $method) {
                     if (strpos($method, 'test'.ucfirst($functionName)) === 0) {
                         return ;

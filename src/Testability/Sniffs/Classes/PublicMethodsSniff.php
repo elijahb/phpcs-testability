@@ -14,6 +14,9 @@ class PublicMethodsSniff implements \PHP_CodeSniffer_Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $method = $tokens[$stackPtr + 2]['content'];
-        $phpcsFile->addError("Refactor {$method} to be public of some other service", $stackPtr);
+        $function = $tokens[$stackPtr + 4];
+        if ($function && $function['token'] == T_FUNCTION) {
+            $phpcsFile->addError("Refactor {$method} to be public of some other service", $stackPtr);
+        }
     }
 }
