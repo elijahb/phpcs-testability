@@ -3,8 +3,10 @@
     "description": "PHPCodeSniffer sniffs for unit test code testability check",
     "homepage": "https://github.com/elijahb/phpcs-testability",
     "keywords": ["phpcs", "sniff", "php-code-sniffer", "phpunit"],
+    "require": {
+        "squizlabs/php_codesniffer": "^2.7"
+    },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^2.7",
         "phpunit/phpunit": "^5.7"
     },
     "autoload": {
