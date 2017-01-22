@@ -19,7 +19,7 @@ class MethodHasUnitTestSniff implements \PHP_CodeSniffer_Sniff
         $tokens = $phpcsFile->getTokens();
         $functionName = $tokens[$stackPtr + 2]['content'];
         $class = $phpcsFile->findPrevious(T_CLASS, $stackPtr);
-        if($class) {
+        if($class && $functionName != '__construct') {
             $className = $tokens[$class + 2]['content'];
             $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
 
