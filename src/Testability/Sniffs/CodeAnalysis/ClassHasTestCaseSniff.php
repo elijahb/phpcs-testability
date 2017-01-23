@@ -19,10 +19,13 @@ class ClassHasTestCaseSniff implements \PHP_CodeSniffer_Sniff
         $tokens = $phpcsFile->getTokens();
         $class = $tokens[$stackPtr + 2]['content'];
 
-        $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
+        if ($tokens[$stackPtr - 2] && $tokens[$stackPtr - 2]['code'] != T_ABSTRACT) {
 
-        if (!class_exists("{$this->testsNamespace}\\$namespaceName\\{$class}Test") && strpos($namespaceName, $this->testsNamespace) !== 0 ) {
-            $phpcsFile->addError("Test case for {$class} missing or wasn't loaded", $stackPtr);
+            $namespaceName = $this->getNamespace($phpcsFile, $stackPtr);
+
+            if (!class_exists("{$this->testsNamespace}\\$namespaceName\\{$class}Test") && strpos($namespaceName, $this->testsNamespace) !== 0) {
+                $phpcsFile->addError("Test case for {$class} missing or wasn't loaded", $stackPtr);
+            }
         }
     }
 }

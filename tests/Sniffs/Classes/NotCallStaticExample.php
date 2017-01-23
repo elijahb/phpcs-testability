@@ -18,6 +18,8 @@ class SomeOtherClass {
         SomeClass::$staticProperty = 'test';
 
         SomeClass::staticMethod();
+
+        SomeClass::class;
     }
 
 }

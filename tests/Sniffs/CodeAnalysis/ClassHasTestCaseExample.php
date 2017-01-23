@@ -11,6 +11,11 @@ namespace App\Controllers {
     {
 
     }
+
+    abstract class AbstractClass
+    {
+
+    }
 }
 
 namespace Tests\App\Controllers {
